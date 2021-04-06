@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://stevelau1015.github.io</id>
     <title>Gridea</title>
-    <updated>2021-04-06T12:12:50.517Z</updated>
+    <updated>2021-04-06T12:14:32.670Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://stevelau1015.github.io"/>
     <link rel="self" href="https://stevelau1015.github.io/atom.xml"/>
@@ -12,10 +12,10 @@
     <rights>All rights reserved 2021, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[树莓派内核编译]]></title>
-        <id>https://stevelau1015.github.io/post/shu-mei-pai-nei-he-bian-yi/</id>
-        <link href="https://stevelau1015.github.io/post/shu-mei-pai-nei-he-bian-yi/">
+        <id>https://stevelau1015.github.io/post/raspberrypi-tools/</id>
+        <link href="https://stevelau1015.github.io/post/raspberrypi-tools/">
         </link>
-        <updated>2021-04-06T05:51:10.000Z</updated>
+        <updated>2021-03-25T05:51:10.000Z</updated>
         <content type="html"><![CDATA[<p>最近在系统地学习嵌入式，把这篇之前写过的文档先update上来</p>
 <h2 id="为什么要使用内核编译">为什么要使用内核编译</h2>
 <p>在编译链接同等规模的代码时，PC机所用的时间应少于树莓派所用时间，通过交叉编译的方法能提高速度。</p>
