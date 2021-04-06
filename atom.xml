@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://stevelau1015.github.io</id>
     <title>Gridea</title>
-    <updated>2021-04-06T12:11:16.554Z</updated>
+    <updated>2021-04-06T12:12:50.517Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://stevelau1015.github.io"/>
     <link rel="self" href="https://stevelau1015.github.io/atom.xml"/>
@@ -10,50 +10,6 @@
     <logo>https://stevelau1015.github.io/images/avatar.png</logo>
     <icon>https://stevelau1015.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
-    <entry>
-        <title type="html"><![CDATA[时间序列分析]]></title>
-        <id>https://stevelau1015.github.io/post/shi-jian-xu-lie-fen-xi/</id>
-        <link href="https://stevelau1015.github.io/post/shi-jian-xu-lie-fen-xi/">
-        </link>
-        <updated>2021-04-06T12:10:05.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="时间序列">时间序列</h1>
-<h2 id="stationary">Stationary</h2>
-<h3 id="如何定义stationary">如何定义stationary：</h3>
-<p>均值、方差为常数，不包含周期性（季节性？）<br>
-<img src="https://img-blog.csdnimg.cn/20210111164423841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h3 id="如何检验是否stationary">如何检验是否stationary</h3>
-<p>non-stationary的一些反例<br>
-<img src="https://img-blog.csdnimg.cn/20210111164826533.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h3 id="如何把不stat变stat用高维变量">如何把不stat变stat，用高维变量</h3>
-<h2 id="白噪音">白噪音</h2>
-<p>三个条件全部满足的称为白噪音<br>
-<img src="https://img-blog.csdnimg.cn/20210111220331296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-实际分析的是signal<br>
-<img src="https://img-blog.csdnimg.cn/20210111220417716.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="autoregressive-model">Autoregressive Model</h2>
-<p>PACF 实际上忽略了band内（红线），取了band外的部分作为特征（自变量）建立模型。</p>
-<h1 id="问题-这个柱状图的纵坐标就是销量吗">问题  这个柱状图的纵坐标就是销量吗？</h1>
-<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20210111220725967.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></figure>
-<h2 id="移动平均模型-moving-average">移动平均模型 moving average</h2>
-<p>疯子教授<br>
-窗口移动，平均值不变，本图均为10<br>
-MA（2）：与前两个月有关。<br>
-上式代表我的预测<br>
-下式代表真实的值，两者的区别只是一个error epsilon ε<br>
-<img src="https://img-blog.csdnimg.cn/20210111222436596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="arma">ARMA</h1>
-<p>一部分AR（小线性和前月销量有关）  一部分MA（和前月错误ε有关）<br>
-<img src="https://img-blog.csdnimg.cn/2021011123043771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-选择ARMA（ ar，ma）的参数，AR的参数由PACF确定，MA的参数由ACF确定<br>
-<img src="https://img-blog.csdnimg.cn/20210111232711465.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="arima">ARIMA</h1>
-<p>i integrand 用来满足stationary这个要求<br>
-用后月减前月的值变成新的Y<br>
-<img src="https://img-blog.csdnimg.cn/20210111232457419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-完整的表达式（见右侧橘色部分）以及已知Zt如何倒推回At<br>
-<img src="https://img-blog.csdnimg.cn/20210111233534835.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[树莓派内核编译]]></title>
         <id>https://stevelau1015.github.io/post/shu-mei-pai-nei-he-bian-yi/</id>
