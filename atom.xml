@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://stevelau1015.github.io</id>
-    <title>Gridea</title>
-    <updated>2021-04-06T12:46:28.521Z</updated>
+    <title>leon21</title>
+    <updated>2021-04-06T12:55:03.599Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://stevelau1015.github.io"/>
     <link rel="self" href="https://stevelau1015.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://stevelau1015.github.io/images/avatar.png</logo>
     <icon>https://stevelau1015.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
+    <rights>All rights reserved 2021, leon21</rights>
     <entry>
         <title type="html"><![CDATA[树莓派内核编译]]></title>
         <id>https://stevelau1015.github.io/post/raspberrypi-tools/</id>
