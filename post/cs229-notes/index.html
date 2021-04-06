@@ -1,75 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://stevelau1015.github.io</id>
-    <title>Gridea</title>
-    <updated>2021-04-06T11:53:19.734Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://stevelau1015.github.io"/>
-    <link rel="self" href="https://stevelau1015.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://stevelau1015.github.io/images/avatar.png</logo>
-    <icon>https://stevelau1015.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
-    <entry>
-        <title type="html"><![CDATA[树莓派内核编译]]></title>
-        <id>https://stevelau1015.github.io/post/shu-mei-pai-nei-he-bian-yi/</id>
-        <link href="https://stevelau1015.github.io/post/shu-mei-pai-nei-he-bian-yi/">
-        </link>
-        <updated>2021-04-06T05:51:10.000Z</updated>
-        <content type="html"><![CDATA[<p>最近在系统地学习嵌入式，把这篇之前写过的文档先update上来</p>
-<h2 id="为什么要使用内核编译">为什么要使用内核编译</h2>
-<p>在编译链接同等规模的代码时，PC机所用的时间应少于树莓派所用时间，通过交叉编译的方法能提高速度。</p>
-<h3 id="建立交叉编译环境">建立交叉编译环境</h3>
-<p>建立交叉编译环境就是在PC机上安装能够编译树莓派软件的工具链，进行树莓派软件的编译。</p>
-<p>工作分为两步，下载交叉编译器和设置环境变量。</p>
-<h4 id="1下载安装树莓派交叉编译器">1.下载安装树莓派交叉编译器</h4>
-<p>首先下载必要的软件和工具</p>
-<pre><code class="language-bash">sudo apt-get install build-essential git
-</code></pre>
-   <img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325225235255.png" alt="1.1下载必要的工具" style="zoom:67%;" />
-<center>图1.1 下载git相关工具并解压</center>
-<pre><code class="language-bash">#在home路径下建立一个文件夹取名为rpi
-mkdir rpi
-#进入该目录并执行clone操作
-cd rpi
-git clone git://github.com/raspberrypi/tools.git
-#进入tools下的arm-bcm2708子目录，交叉编译器在此目录下。
-cd ~/rpi/tools/arm-bcm2708/
-#64位系统使用的工具所在文件夹为 
-$(gcc-linaro-arm-linux-gnueabihf-raspbian-x64)
-</code></pre>
-<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325230622364.png" alt="image-20210325230622364"  />
-<center>图1.2 建立目录并找到交叉编译器所在位置</center>
-<h4 id="2设置环境变量">2.设置环境变量</h4>
-<p>在<code>/.bashrc</code>文件中加入<code>gcc</code>交叉工具链目录。</p>
-<pre><code class="language-bash">sudo nano ~/.bashrc
-</code></pre>
-<p>打开一个隐藏文件，在该文件最后一行加入交叉工具链所在目录。</p>
-<pre><code class="language-bash">export PATH=$PATH:$HOME/rpi/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
-</code></pre>
-<p>请注意<code>~</code>符号表示<code>HOME</code>路径，<code>.bashrc</code>为隐藏文件。注意<code>PATH</code>代表环境变量，<code>:</code>冒号代表追加。<code>x</code>是小写的。</p>
-<p>![image-20210325233216305](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325233216305.png)</p>
-<center>图2.1 加入交叉工具链所在目录</center>
-<p><code>Ctrl-O</code>保存并退出文件，接着执行以下指令以便立即更新当前控制台所包含的环境变量。</p>
-<pre><code class="language-bash">source .bashrc
-</code></pre>
-<p>![image-20210325231723275](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325231723275.png)</p>
-<center>图2.2 执行命令更新环境变量</center>
-<p>为了测试交叉工具链是否安装成功，可在控制台中输入：</p>
-<pre><code class="language-bash">arm-linux-gnueabihf-gcc -v
-</code></pre>
-<p>得到下图，证明交叉工具链安装成功。</p>
-<p>![image-20210325233013224](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325233013224.png)</p>
-<center>图2.3 验证交叉工具链是否安装成功</center>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[cs229 机器学习笔记]]></title>
-        <id>https://stevelau1015.github.io/post/cs229-notes/</id>
-        <link href="https://stevelau1015.github.io/post/cs229-notes/">
-        </link>
-        <updated>2021-01-08T08:38:34.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="cs229-学习笔记">CS229 学习笔记</h1>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>cs229 机器学习笔记 | Gridea</title>
+<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1617709996550">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="cs229 机器学习笔记 | Gridea - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="CS229 学习笔记
+梯度下降应该同步更新
+缺少图片
+lr 设置要合理
+
+评价函数里对所有样本做了遍历，于是为BGD Batch
+
+奇异矩阵没有逆矩阵
+
+特征缩放
+
+平均标准化
+画这个图像来确认梯度下降是否收敛
+
+设置合适的学习率，不然梯度..." />
+    <meta name="keywords" content="Machine Learning" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://stevelau1015.github.io">
+  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1617709996550" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              cs229 机器学习笔记
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-08
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://stevelau1015.github.io/tag/ZQvoL-G_Q/" class="post-tag">
+                  # Machine Learning
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="cs229-学习笔记">CS229 学习笔记</h1>
 <h2 id="梯度下降应该同步更新">梯度下降应该同步更新</h2>
 <p>缺少图片</p>
 <h2 id="lr-设置要合理">lr 设置要合理</h2>
@@ -173,6 +210,137 @@ pca不是linear regression<br>
 <h2 id="恢复压缩">恢复压缩</h2>
 <p>两边左乘一个svd中的U<br>
 <img src="https://img-blog.csdnimg.cn/20210111153010877.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-]]></content>
-    </entry>
-</feed>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#cs229-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">CS229 学习笔记</a>
+<ul>
+<li><a href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%BA%94%E8%AF%A5%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0">梯度下降应该同步更新</a></li>
+<li><a href="#lr-%E8%AE%BE%E7%BD%AE%E8%A6%81%E5%90%88%E7%90%86">lr 设置要合理</a>
+<ul>
+<li><a href="#%E8%AF%84%E4%BB%B7%E5%87%BD%E6%95%B0%E9%87%8C%E5%AF%B9%E6%89%80%E6%9C%89%E6%A0%B7%E6%9C%AC%E5%81%9A%E4%BA%86%E9%81%8D%E5%8E%86%E4%BA%8E%E6%98%AF%E4%B8%BAbgd-batch">评价函数里对所有样本做了遍历，于是为BGD Batch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%A5%87%E5%BC%82%E7%9F%A9%E9%98%B5%E6%B2%A1%E6%9C%89%E9%80%86%E7%9F%A9%E9%98%B5">奇异矩阵没有逆矩阵</a>
+<ul>
+<li><a href="#%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE">特征缩放</a>
+<ul>
+<li><a href="#%E5%B9%B3%E5%9D%87%E6%A0%87%E5%87%86%E5%8C%96">平均标准化!在这里插入图片描述</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%BB%E8%BF%99%E4%B8%AA%E5%9B%BE%E5%83%8F%E6%9D%A5%E7%A1%AE%E8%AE%A4%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%98%AF%E5%90%A6%E6%94%B6%E6%95%9B">画这个图像来确认梯度下降是否收敛</a>
+<ul>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E5%90%88%E9%80%82%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%8E%87%E4%B8%8D%E7%84%B6%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%95%88%E7%8E%87%E4%BC%9A%E5%BE%88%E6%85%A2">设置合适的学习率，不然梯度下降效率会很慢</a></li>
+</ul>
+</li>
+<li><a href="#octave%E6%95%99%E5%AD%A6">Octave教学</a></li>
+<li><a href="#normal-equation-%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B">Normal Equation 正规方程</a></li>
+<li><a href="#%E7%94%A8normal-equation%E6%97%B6%E7%BC%A9%E6%94%BE%E6%98%AF%E6%B2%A1%E6%9C%89%E5%BF%85%E8%A6%81%E7%9A%84">用normal equation时，缩放是没有必要的</a></li>
+</ul>
+</li>
+<li><a href="#logistic-regression-%E6%96%B0cost-%E5%87%BD%E6%95%B0%E6%9D%A5%E8%87%AA%E4%BA%8E%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1">logistic regression 新cost 函数来自于极大似然估计</a><br>
+*
+<ul>
+<li><a href="#%E5%92%8Clinear-regression-%E7%9A%84%E5%8C%BA%E5%88%AB%E5%9C%A8%E4%BA%8Ehx%E7%9A%84%E5%81%87%E8%AE%BE%E4%B8%8D%E4%B8%80%E6%A0%B7%E4%BA%86">和linear regression 的区别在于h(x)的假设不一样了</a></li>
+<li><a href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98">多分类问题</a></li>
+<li><a href="#overfitting-high-variance-%E8%BF%87%E6%8B%9F%E5%90%88%E9%AB%98%E6%96%B9%E5%B7%AE">overfitting  High variance 过拟合=高方差</a></li>
+</ul>
+</li>
+<li><a href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">神经网络</a>
+<ul>
+<li><a href="#cost-function-lesson-9-1">cost function （lesson 9-1）</a></li>
+<li><a href="#%E5%90%8E%E5%90%91%E4%BC%A0%E6%92%AD-lesson-9-2">后向传播 （lesson 9-2）</a>
+<ul>
+<li><a href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%B5%81%E7%A8%8B">具体实现的流程</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7%E5%85%A8%E9%83%A8%E4%B8%80%E6%A0%B7%E7%9A%84%E5%88%9D%E5%A7%8B%E6%9D%83%E9%87%8D%E5%B0%86%E5%AF%BC%E8%87%B4%E4%B8%80%E6%A8%A1%E4%B8%80%E6%A0%B7%E7%9A%84%E8%BE%93%E5%85%A5%E7%BB%93%E6%9E%9C%E6%89%80%E6%9C%89%E7%BD%91%E7%BB%9C%E8%8A%82%E7%82%B9%E9%83%BD%E4%B8%80%E6%A0%B7%E8%AE%A1%E7%AE%97%E6%B2%A1%E6%9C%89%E6%84%8F%E4%B9%89">零初始化的重要性，全部一样的初始权重将导致一模一样的输入结果，所有网络节点都一样，计算没有意义</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BB%BA%E8%AE%AE%E7%9A%84%E7%AD%96%E7%95%A5-%E4%B8%8D%E8%A6%81%E8%BF%87%E6%97%A9%E4%BC%98%E5%8C%96">建议的策略 不要过早优化</a></li>
+<li><a href="#%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90">误差分析</a></li>
+<li><a href="#%E4%B8%8D%E5%9D%87%E8%A1%A1%E7%9A%84%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98-skewed">不均衡的分类问题 skewed</a>
+<ul>
+<li><a href="#precision%E5%92%8Crecall%E7%9A%84%E6%9D%83%E8%A1%A1">precision和recall的权衡</a></li>
+</ul>
+</li>
+<li><a href="#%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E6%9B%B4%E5%A4%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86">是否需要更大的数据集</a></li>
+<li><a href="#12-1-svm">12-1 Svm</a>
+<ul>
+<li><a href="#12-2-svm-c%E4%B8%8D%E5%A4%AA%E5%A4%A7%E7%9A%84%E6%97%B6%E5%80%99%E4%BC%9A%E5%90%88%E7%90%86%E5%BF%BD%E7%95%A5%E5%BC%82%E5%B8%B8%E5%A4%A7%E9%97%B4%E9%9A%94%E5%AF%BC%E8%87%B4%E4%BA%86%E9%B2%81%E6%A3%92%E6%80%A7%E7%94%A8%E5%B0%BD%E9%87%8F%E5%A4%A7%E7%9A%84%E9%97%B4%E9%9A%94%E6%8A%8A%E6%A0%B7%E6%9C%AC%E5%88%86%E5%BC%80">12-2 svm C不太大的时候会合理忽略异常，大间隔导致了鲁棒性，用尽量大的间隔把样本分开</a></li>
+<li><a href="#12-3-%CE%B8_0-0%E8%BE%B9%E7%95%8C%E8%BF%87%E5%8E%9F%E7%82%B9-%E6%97%B6%E5%80%99%E7%9A%84%E5%88%86%E7%B1%BB%E6%95%88%E6%9E%9C%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC">12-3 θ_0 = 0(边界过原点） 时候的分类效果，数学推导</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B7%B3%E8%BF%87%E4%BA%8612-1~13-5%E7%9A%84svm%E5%92%8Ck-means%E8%81%9A%E7%B1%BB%E5%BE%85%E8%A1%A5%E5%85%85%E5%85%B111%E4%B8%AA%E8%A7%86%E9%A2%91">跳过了12-1~13-5的SVM和K-means聚类（待补充）共11个视频</a></li>
+<li><a href="#%E9%99%8D%E7%BB%B4pca-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90">降维：PCA 主成分分析</a>
+<ul>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%90%88%E9%80%82%E7%9A%84%E7%BB%B4%E5%BA%A6%E9%80%89%E6%8B%A9%E9%99%8D%E5%88%B0%E5%87%A0%E7%BB%B4%E5%91%A2">如何查看合适的维度，选择降到几维呢？</a></li>
+<li><a href="#%E6%81%A2%E5%A4%8D%E5%8E%8B%E7%BC%A9">恢复压缩</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://stevelau1015.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
