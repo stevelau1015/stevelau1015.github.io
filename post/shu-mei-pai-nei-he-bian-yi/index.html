@@ -1,0 +1,220 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>树莓派内核编译 | Gridea</title>
+<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1617708155267">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="树莓派内核编译 | Gridea - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="最近在系统地学习嵌入式，把这篇之前写过的文档先update上来
+为什么要使用内核编译
+在编译链接同等规模的代码时，PC机所用的时间应少于树莓派所用时间，通过交叉编译的方法能提高速度。
+建立交叉编译环境
+建立交叉编译环境就是在PC机上安装能够..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://stevelau1015.github.io">
+  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1617708155267" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              树莓派内核编译
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-04-06
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>最近在系统地学习嵌入式，把这篇之前写过的文档先update上来</p>
+<h2 id="为什么要使用内核编译">为什么要使用内核编译</h2>
+<p>在编译链接同等规模的代码时，PC机所用的时间应少于树莓派所用时间，通过交叉编译的方法能提高速度。</p>
+<h3 id="建立交叉编译环境">建立交叉编译环境</h3>
+<p>建立交叉编译环境就是在PC机上安装能够编译树莓派软件的工具链，进行树莓派软件的编译。</p>
+<p>工作分为两步，下载交叉编译器和设置环境变量。</p>
+<h4 id="1下载安装树莓派交叉编译器">1.下载安装树莓派交叉编译器</h4>
+<p>首先下载必要的软件和工具</p>
+<pre><code class="language-bash">sudo apt-get install build-essential git
+</code></pre>
+   <img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325225235255.png" alt="1.1下载必要的工具" style="zoom:67%;" />
+<center>图1.1 下载git相关工具并解压</center>
+<pre><code class="language-bash">#在home路径下建立一个文件夹取名为rpi
+mkdir rpi
+#进入该目录并执行clone操作
+cd rpi
+git clone git://github.com/raspberrypi/tools.git
+#进入tools下的arm-bcm2708子目录，交叉编译器在此目录下。
+cd ~/rpi/tools/arm-bcm2708/
+#64位系统使用的工具所在文件夹为 
+$(gcc-linaro-arm-linux-gnueabihf-raspbian-x64)
+</code></pre>
+<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325230622364.png" alt="image-20210325230622364"  />
+<center>图1.2 建立目录并找到交叉编译器所在位置</center>
+<h4 id="2设置环境变量">2.设置环境变量</h4>
+<p>在<code>/.bashrc</code>文件中加入<code>gcc</code>交叉工具链目录。</p>
+<pre><code class="language-bash">sudo nano ~/.bashrc
+</code></pre>
+<p>打开一个隐藏文件，在该文件最后一行加入交叉工具链所在目录。</p>
+<pre><code class="language-bash">export PATH=$PATH:$HOME/rpi/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
+</code></pre>
+<p>请注意<code>~</code>符号表示<code>HOME</code>路径，<code>.bashrc</code>为隐藏文件。注意<code>PATH</code>代表环境变量，<code>:</code>冒号代表追加。<code>x</code>是小写的。</p>
+<p>![image-20210325233216305](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325233216305.png)</p>
+<center>图2.1 加入交叉工具链所在目录</center>
+<p><code>Ctrl-O</code>保存并退出文件，接着执行以下指令以便立即更新当前控制台所包含的环境变量。</p>
+<pre><code class="language-bash">source .bashrc
+</code></pre>
+<p>![image-20210325231723275](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325231723275.png)</p>
+<center>图2.2 执行命令更新环境变量</center>
+<p>为了测试交叉工具链是否安装成功，可在控制台中输入：</p>
+<pre><code class="language-bash">arm-linux-gnueabihf-gcc -v
+</code></pre>
+<p>得到下图，证明交叉工具链安装成功。</p>
+<p>![image-20210325233013224](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325233013224.png)</p>
+<center>图2.3 验证交叉工具链是否安装成功</center>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91">为什么要使用内核编译</a>
+<ul>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83">建立交叉编译环境</a>
+<ul>
+<li><a href="#1%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E6%A0%91%E8%8E%93%E6%B4%BE%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%99%A8">1.下载安装树莓派交叉编译器</a></li>
+<li><a href="#2%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">2.设置环境变量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://stevelau1015.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
