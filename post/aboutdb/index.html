@@ -1,0 +1,260 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>关于数据库  | leon21</title>
+<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1617718586872">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="关于数据库  | leon21 - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="大部分关于 SQLite3
+Nosql使用了倒排索引，Mysql用了B+树，innodb用B树，并不是一无所用，但是每种数据结构都有其使用的背景，读和写的比例一般为10：1；
+事务是由下层的存储引擎实现的。如果在事务中混合使用了事务型和非事..." />
+    <meta name="keywords" content="Database" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://stevelau1015.github.io">
+  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1617718586872" alt="">
+  </a>
+  <h1 class="site-title">
+    leon21
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          档案
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/stevelau1015/" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+        <a href="https://weibo.com/stevelau1015/" target="_blank">
+          <i class="ri-weibo-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              关于数据库 
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-03-30
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://stevelau1015.github.io/tag/p1VU08R31/" class="post-tag">
+                  # Database
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="大部分关于-sqlite3">大部分关于 SQLite3</h2>
+<p>Nosql使用了倒排索引，Mysql用了B+树，innodb用B树，并不是一无所用，但是每种数据结构都有其使用的背景，读和写的比例一般为10：1；</p>
+<p>事务是由下层的存储引擎实现的。如果在事务中混合使用了事务型和非事务型的表（例如InnoDB（（一种引擎））和MyISAM（（另一种引擎））表）,在正常提交的情况下不会有什么问题。</p>
+<p>SQLite</p>
+<ol>
+<li>
+<p>支持ACID</p>
+</li>
+<li>
+<p>零配置，无需安装和管理配置；独立运行，不需要其他依赖，打其他支持包</p>
+</li>
+<li>
+<p>储存在单一磁盘文件中的一个完整数据库；</p>
+</li>
+<li>
+<p>数据库文件可以在不同字节顺序的机器间自由共享；（大端小端格式都可以）</p>
+</li>
+<li>
+<p>足够小，全部源代码3w行，编译完大概250kb；</p>
+</li>
+<li>
+<p>操作快，小型化数据库。</p>
+</li>
+<li>
+<p>支持事务</p>
+<blockquote>
+<p>事务是逻辑上的⼀组操作，要么都执⾏，要么都不执⾏。体现<strong>原子性</strong></p>
+<p>事务最经典也经常被拿出来说例⼦就是转账了。假如⼩明要给⼩红转账1000元，这个转账会涉及到两个关键操作就是：将⼩明的余额减少1000元，将⼩红的余额增加1000元。万⼀在这两个操作之间突然出现错误⽐如银⾏系统崩溃，导致⼩明余额减少⽽⼩红的余额没有增加，这样就不对了。事务就是保证这两个关键操作要么都成功，要么都要失败。</p>
+<p><strong>一致性</strong>，完整性约束a+b=10，一个事务改变了a，b也应该随时改变。用完整性来约束</p>
+<p>​			官方文档：	The database remains in a consistent state at all times — after each commit or rollback, and while transactions are in progress. If related data is being updated across multiple tables, queries see either all old values or all new values, not a mix of old and new values.</p>
+<p><strong>事务的一致性C是基于A,I,D的</strong>，即不考虑事务的并发（I）和数据库的可靠性（D），事务操作都是原子的情况下（A），如何实现数据的一致性：</p>
+<ul>
+<li>完整性约束：可以通过<strong>SQL构建</strong>，比如not null, 主键约束，参照约束，check约束等，这类约束特点是：<strong>数据表设计者建立——数据库自动检查——比较简单，不构成性能问题</strong>，但是<strong>无法胜任复杂的约束</strong></li>
+<li>程序的一致性约束：取决于业务的需求，即事务中间进行的多个操作的要保证业务上的一致性约束需求。譬如：简单的打款，你可以通过建表时设置账户余额字段不能为负数来使得余额不足时无法打款，这是完整性约束；但是，你也可以不设置账户不允许负数的规则，而是在事务执行过程里自己做判断来实现这一一致性约束。如果是比打款更加复杂的一致性（取决于业务），显然业务有各种各样的一致性约束需求，如果都通过数据库定义来实现，一是<strong>过于复杂的约束检查在性能上可能会有问题</strong>，二来也<strong>使得数据库设计有些臃肿：业务耦合太多</strong>，因此，这部分的一致性需要应用程序设计者自己来实现，即事务里具体执行的操作。</li>
+</ul>
+<p>结论：<strong>事务里的一致性，由数据库自动检查和程序员两方面来保障</strong>。</p>
+<p><strong>独立性</strong>（隔离性 isolation），两个以上的事务不会出现交错执行打印文件同时点打印，两个文档都是完整的</p>
+<p><strong>持久性</strong>，事务运行成功后，系统的更新是永久的，不会无缘无故地回滚。改成绩退系统进系统发现成绩没变就是不可持久性</p>
+</blockquote>
+</li>
+<li>
+<p>Transaction保证完整性，打断之后能继续，多条语句一起提交也会比一条一条提交提高运行速度,取消了多条之间的接受解释操作等操作 （具体in 数据库的操作里待补充）</p>
+</li>
+<li>
+<p>SQLite的高级用法 ，ANSI SQL92 支持</p>
+<p>视图：SQLite的高级用法（知道每张表之间的关系，库里有几张表，表都是什么关系）</p>
+<blockquote>
+<p>视图（View）只不过是通过相关的名称存储在数据库中的一个 SQLite 语句。视图（View）实际上是一个以预定义的 SQLite 查询形式存在的表的组合。</p>
+<p>视图（View）可以包含一个表的所有行或从一个或多个表选定行。视图（View）可以从一个或多个表创建，这取决于要创建视图的 SQLite 查询。、</p>
+<p>视图（View）是一种虚表，允许用户实现以下几点：</p>
+<p>用户或用户组查找结构数据的方式<strong>更自然或直观</strong>。</p>
+<p>限制数据访问，用户只能看到<strong>有限的数据</strong>，而不是完整的表。</p>
+<p>汇总各种表中的数据，用于生成报告。</p>
+<p>SQLite 视图是只读的，因此可能无法在视图上执行 DELETE、INSERT 或 UPDATE 语句。但是可以在视图上创建一个<strong>触发器</strong>，当尝试 DELETE、INSERT 或 UPDATE 视图时<strong>触发，需要做的动作在触发器内容中定义。</strong></p>
+</blockquote>
+<p>触发器：SQLite的高级用法</p>
+<blockquote>
+<p>触发器（trigger）：监视某种情况，并触发某种操作，它是提供给程序员和数据分析员来<strong>保证数据完整性</strong>的一种方法，它是与表事件相关的<strong>特殊的存储过程</strong>，它的执行不是由程序调用，也不是手工启动，而是由事件来触发，例如当对一个表进行操作（ insert，delete， update）时就会激活它执行。</p>
+</blockquote>
+<p>事务，嵌套SQL</p>
+<h2 id="查找-like-模糊字段">查找 like 模糊字段</h2>
+<p>赋值号的话就用string匹配</p>
+<p>select *like ‘ %value1% ’</p>
+<h2 id="回滚">回滚</h2>
+<p>程序或数据处理错误，将程序或数据恢复到上一个正确的状态的行为，包括程序回滚和数据回滚等类型</p>
+<h2 id="数据库快照">数据库快照</h2>
+<p>数据库在某一时间点的视图</p>
+<h2 id="视图">视图</h2>
+<p>包含一系列带有行数据和列数据的表，只是由SQL语句拼出来的，具有普通表的结构，但是不实现数据储存，和真实的表看起来一样</p>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%A4%A7%E9%83%A8%E5%88%86%E5%85%B3%E4%BA%8E-sqlite3">大部分关于 SQLite3</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE-like-%E6%A8%A1%E7%B3%8A%E5%AD%97%E6%AE%B5">查找 like 模糊字段</a></li>
+<li><a href="#%E5%9B%9E%E6%BB%9A">回滚</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BF%AB%E7%85%A7">数据库快照</a></li>
+<li><a href="#%E8%A7%86%E5%9B%BE">视图</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://stevelau1015.github.io/post/raspberrypi-tools/">
+              <h3 class="post-title">
+                树莓派内核编译
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/stevelau1015/" target="_blank"> Leon21 </a>
+  <a class="rss" href="https://stevelau1015.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
