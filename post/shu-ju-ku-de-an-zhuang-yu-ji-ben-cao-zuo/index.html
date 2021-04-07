@@ -1,0 +1,354 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>数据库的安装与基本操作 | leon21</title>
+<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1617812133241">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="数据库的安装与基本操作 | leon21 - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-194058776-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-194058776-1');
+</script>
+
+
+    <meta name="description" content="数据库的安装与操作
+本文用于记录熟悉数据库的概念和 Linux 下数据库程序使用的过程。练习了简单的SQL语句 ，使用C语言完成了部分SQL数据库语句的功能。
+[TOC]
+写在最前
+本次安装的版本为3.22.0。
+.out命令后不可以添加；..." />
+    <meta name="keywords" content="Database" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://stevelau1015.github.io">
+  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1617812133241" alt="">
+  </a>
+  <h1 class="site-title">
+    leon21
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          档案
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/stevelau1015/" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+        <a href="https://weibo.com/stevelau1015/" target="_blank">
+          <i class="ri-weibo-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              数据库的安装与基本操作
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-04-08
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://stevelau1015.github.io/tag/p1VU08R31/" class="post-tag">
+                  # Database
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="数据库的安装与操作"><strong>数据库的安装与操作</strong></h1>
+<p>本文用于记录熟悉数据库的概念和 Linux 下数据库程序使用的过程。练习了简单的SQL语句 ，使用C语言完成了部分SQL数据库语句的功能。</p>
+<p>[TOC]</p>
+<h3 id="写在最前">写在最前</h3>
+<p>本次安装的版本为3.22.0。</p>
+<p>.out命令后不可以添加<code>；</code>：因为会输出后缀为<code>txt；</code>的文件。</p>
+<p>其他命令需要<code>；</code>：否则按下<code>enter</code>键后会换行，读取命令。</p>
+<h3 id="sql的基础语句"><strong>SQL的基础语句</strong></h3>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6591507"><label class="task-list-item-label" for="task-item-6591507"> 创建：create table 表名 (字段设定列表)； √</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6944256"><label class="task-list-item-label" for="task-item-6944256"> 选择：select * from table1 where 范围；√</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-2635519"><label class="task-list-item-label" for="task-item-2635519"> 插入：insert into table1(field1,field2) values(value1,value2) √</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-715758"><label class="task-list-item-label" for="task-item-715758"> 排序：select * from table1 order by field1,field2 [desc]√</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9403274"><label class="task-list-item-label" for="task-item-9403274"> 求和：select sum(field1) as sumvalue from table1√</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-5653538"><label class="task-list-item-label" for="task-item-5653538"> 删除：delete from table1 where 范围</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8521242"><label class="task-list-item-label" for="task-item-8521242"> 更新：update table1 set field1=value1 where 范围</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4055549"><label class="task-list-item-label" for="task-item-4055549"> 查找：select * from table1 where field1 like ’%value1%’</label></p>
+</li>
+<li class="task-list-item">
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2780127"><label class="task-list-item-label" for="task-item-2780127"> 总数：select count * as totalcount from table1</label></p>
+</li>
+</ul>
+<blockquote>
+<h3 id="实验平台与环境">实验平台与环境：</h3>
+<p>Linux version 5.3.0-28-generic</p>
+<p>gcc version 7.4.0</p>
+<p>Ubuntu 7.4.0-1ubuntu1~18.04.1</p>
+<p>SQLite 3.22.0</p>
+</blockquote>
+<h3 id="正式过程">正式过程：</h3>
+<h4 id="安装">安装</h4>
+<pre><code class="language-bash">sudo apt install sqlite3
+</code></pre>
+<p>!(https://stevelau1015.github.io/post-images/1617812002471.png)</p>
+<center>图2.1 安装成功显示如图</center>
+<h4 id="建库与建表">建库与建表</h4>
+<pre><code class="language-bash">leonlau@ubuntu:~$ sqlite3 stu.db
+SQLite version 3.22.0 2018-01-22 18:45:57
+Enter &quot;.help&quot; for usage hints.
+</code></pre>
+<h4 id="创建"><strong>创建</strong></h4>
+<pre><code class="language-sqlite">create table student(ID integer primary key,Name varchar(20),Age integer,Sex varchar(10));
+</code></pre>
+<h4 id="插入"><strong>插入</strong></h4>
+<pre><code class="language-sqlite">sqlite&gt; insert into student values(10001,'zhangsan',20,'female');
+sqlite&gt; insert into student values(10002,'lisi',19,'male');
+</code></pre>
+<h4 id="选择"><strong>选择</strong></h4>
+<pre><code class="language-sqlite">sqlite&gt; select * from student;
+</code></pre>
+<h4 id="排序"><strong>排序</strong></h4>
+<p>（默认为升序）</p>
+<pre><code class="language-sqlite">sqlite&gt; .out std
+sqlite&gt; select * from student order by Age;
+</code></pre>
+<h4 id="输出结果">输出结果</h4>
+<p>![image-20210407155809290](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407155809290.png)</p>
+<center>图2.2 文件结构如图</center>
+<pre><code class="language-bash">sqlite&gt; .output result.txt #以所给文件的后缀输出
+sqlite&gt; .output sdout #标准输出到屏幕
+</code></pre>
+<p>文件内结构为查询出的两条记录。</p>
+<p>![image-20210407160510007](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407160510007.png)</p>
+<center>图2.3 内部显示如图</center>
+<h4 id="使用c语言实现sql语句">使用c语言实现sql语句</h4>
+<pre><code class="language-c">int main(){
+     sqlite3 *db=NULL;
+     int rc, i=0, nrow,ncol;
+     char *Errormsg, **Result;
+	
+     rc=sqlite3_open(&quot;test.db&quot;,&amp;db);
+     if(rc){
+	fprintf(stderr,&quot;can't open database:%s\n&quot;,sqlite3_errmsg(db));
+	sqlite3_close(db);
+	return 1;
+     }
+     else
+	printf(&quot;open database successly!\n&quot;);
+
+    char *sql=&quot;create table student(ID integer primary key,Name varchar(20),Age integer,Sex varchar(10))&quot;;
+    sqlite3_exec(db,sql,0,0,&amp;Errormsg);
+
+    sql=&quot;insert into student values(10001,'zhangsan',20,'female')&quot;;
+    sqlite3_exec(db,sql,0,0,&amp;Errormsg);
+
+    sql=&quot;insert into student values(10002,'lisi',19,'male')&quot;;
+    sqlite3_exec(db,sql,0,0,&amp;Errormsg);
+
+    sql=&quot;select * from student&quot;;
+    sqlite3_get_table(db,sql,&amp;Result,&amp;nrow,&amp;ncol,&amp;Errormsg);
+	    printf(&quot;row=%d column=%d\n&quot;,nrow,ncol);
+	    printf(&quot;the result is:\n&quot;);
+	        for(i=0;i&lt;(nrow+1)*ncol;i++)
+		printf(&quot;Result[%d]=%s\n&quot;,i,Result[i]);
+	sqlite3_free(Errormsg);
+	sqlite3_free_table(Result);
+	sqlite3_close(db);
+	return 0;
+}
+</code></pre>
+<p><strong>结果如图所示：</strong>![image-20210407234501927](file://C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407234501927.png?lastModify=1617810566)</p>
+<center>图2.4 结果：使用C语言完成SQL语句的功能</center>
+<h3 id="其他操作练习">其他操作练习：</h3>
+<p>**[w3schools]**为我们提供了<a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">The Try-SQL Editor</a>，一个包含8张表的小型数据库，我基于此完成了剩余的基础操作练习</p>
+<h4 id="插入-2"><strong>插入</strong></h4>
+<pre><code class="language-sql">insert into orders(OrderID,CustomerID,EmployeeID,OrderDate,ShipperID) values(12345,000,0,2021-07-04,0);
+</code></pre>
+<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407164636816.png" alt="image-20210407164636816" style="zoom: 67%;" />
+<center>图2.5 Orders表增加了一条记录</center>
+<h4 id="求和"><strong>求和</strong></h4>
+<pre><code class="language-sql">select sum(Quantity) as sumvalue FROM [OrderDetails]
+</code></pre>
+<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407164710151.png" alt="image-20210407164710151" style="zoom: 50%;" />
+<center>图2.6 OrdersDetails表的quantity总数为12743</center>
+<h3 id="总结">总结：</h3>
+<ul>
+<li>在这次实验里我学到了一些基础SQL语句的使用，也使用c语言自己编写实现语句的功能。</li>
+<li>还有删除、更新、查找、总数等几个语句需要由于事件原因没能完成，需要在之后对数据库专门的学习里补充完整。</li>
+<li>句尾的<code>；</code>可能因为数据库版本的原因需要具体情况具体分析。</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C"><strong>数据库的安装与操作</strong></a><br>
+*
+<ul>
+<li><a href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D">写在最前</a></li>
+<li><a href="#sql%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AF%AD%E5%8F%A5"><strong>SQL的基础语句</strong></a></li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E5%B9%B3%E5%8F%B0%E4%B8%8E%E7%8E%AF%E5%A2%83">实验平台与环境：</a></li>
+<li><a href="#%E6%AD%A3%E5%BC%8F%E8%BF%87%E7%A8%8B">正式过程：</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E5%BB%BA%E5%BA%93%E4%B8%8E%E5%BB%BA%E8%A1%A8">建库与建表</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA"><strong>创建</strong></a></li>
+<li><a href="#%E6%8F%92%E5%85%A5"><strong>插入</strong></a></li>
+<li><a href="#%E9%80%89%E6%8B%A9"><strong>选择</strong></a></li>
+<li><a href="#%E6%8E%92%E5%BA%8F"><strong>排序</strong></a></li>
+<li><a href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C">输出结果</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0sql%E8%AF%AD%E5%8F%A5">使用c语言实现sql语句</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0">其他操作练习：</a>
+<ul>
+<li><a href="#%E6%8F%92%E5%85%A5-2"><strong>插入</strong></a></li>
+<li><a href="#%E6%B1%82%E5%92%8C"><strong>求和</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结：</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://stevelau1015.github.io/post/aboutdb/">
+              <h3 class="post-title">
+                关于数据库 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/stevelau1015/" target="_blank"> Leon21 </a>
+  <a class="rss" href="https://stevelau1015.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
