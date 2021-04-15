@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>机器学习：手推SVM超平面分界线 | leon21</title>
-<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1618490181924">
+<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1618490824722">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="机器学习：手推SVM超平面分界线 | leon21 - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
@@ -31,7 +31,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://stevelau1015.github.io">
-  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1618490181924" alt="">
+  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1618490824722" alt="">
   </a>
   <h1 class="site-title">
     leon21
@@ -99,7 +99,7 @@
                 2021-04-15
               </span>
               <span>
-                9 min read
+                10 min read
               </span>
               
                 <a href="https://stevelau1015.github.io/tag/ZQvoL-G_Q/" class="post-tag">
@@ -187,7 +187,32 @@ print(clf.predict([[0,4]]))
 [1]
 </code></pre>
 <h3 id="几何解法">几何解法</h3>
-<p>通过画图得出，略。</p>
+<pre><code class="language-python">w = clf.coef_[0]                       #权重向量（二维）  coef_存放回归系数
+a = -w[0]/w[1]                         #直线的斜率
+x = np.linspace(-5,5)                  #在指定间隔（-5,5）之间产生等差数列作为x坐标的值
+y = a * x -(clf.intercept_[0])/w[1]    #intercept_[0]存放截距w3
+
+b = clf.support_vectors_[0]        #第一个支持向量的点
+y_down = a * x + (b[1] - a*b[0])   #超平面下方的直线的方程
+b = clf.support_vectors_[-1]       #最后一个支持向量点
+y_up = a * x + (b[1] - a*b[0])     #超平面上方的直线的方程
+
+print(&quot;weight vector:&quot;,w)         #输出权重向量w
+print(&quot;ratio:&quot;,a)		  #输出斜率
+print(&quot;support vectors&quot;,clf.support_vectors_)    #输出支持向量点
+print(&quot;clf.coef_&quot;,clf.coef_)        #clf.coef_存放回归系数
+
+#画图
+pl.plot(x,y,'k-')         #画出超平面
+pl.plot(x,y_down,'k--')   #与支持向量相切下面的直线
+pl.plot(x,y_up,'k--')     #与支持向量相切上面的直线
+
+pl.scatter(clf.support_vectors_[:,0],clf.support_vectors_[:,1],s=80,facecolors='none')   #绘制出支持向量点 
+pl.axis('tight')        #调整坐标和你输入的数据范围一致
+pl.show()
+</code></pre>
+<p>通过画图得出，<br>
+<img src="https://stevelau1015.github.io/post-images/1618490691454.png" alt="" loading="lazy"></p>
 
               </div>
               <div class="toc-container">
