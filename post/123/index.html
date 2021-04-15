@@ -1,22 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://stevelau1015.github.io</id>
-    <title>leon21</title>
-    <updated>2021-04-15T11:46:44.615Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://stevelau1015.github.io"/>
-    <link rel="self" href="https://stevelau1015.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://stevelau1015.github.io/images/avatar.png</logo>
-    <icon>https://stevelau1015.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, leon21</rights>
-    <entry>
-        <title type="html"><![CDATA[机器学习：手推SVM超平面分界线]]></title>
-        <id>https://stevelau1015.github.io/post/123/</id>
-        <link href="https://stevelau1015.github.io/post/123/">
-        </link>
-        <updated>2021-04-15T11:45:18.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="问题">问题:</h2>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>机器学习：手推SVM超平面分界线 | leon21</title>
+<link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1618487198957">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="机器学习：手推SVM超平面分界线 | leon21 - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-194058776-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-194058776-1');
+</script>
+
+
+    <meta name="description" content="问题:
+训练集有3个数据点, 其中两个正例点,一个负例点:
+x1=(−1,2)T,x2=(1,2)T,x3=(−1,−2)Tx_{1}=(-1,2)^{T}, x_{2}=(1,2)^{T}, x_{3}=(-1,-2)^{T}
+x1​=(..." />
+    <meta name="keywords" content="Machine Learning" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://stevelau1015.github.io">
+  <img class="avatar" src="https://stevelau1015.github.io/images/avatar.png?v=1618487198957" alt="">
+  </a>
+  <h1 class="site-title">
+    leon21
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          档案
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/stevelau1015/" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+        <a href="https://weibo.com/stevelau1015/" target="_blank">
+          <i class="ri-weibo-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              机器学习：手推SVM超平面分界线
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-04-15
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://stevelau1015.github.io/tag/ZQvoL-G_Q/" class="post-tag">
+                  # Machine Learning
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="问题">问题:</h2>
 <p>训练集有3个数据点, 其中两个正例点,一个负例点:</p>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><mo>(</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><msup><mo>)</mo><mi>T</mi></msup><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><msup><mo>)</mo><mi>T</mi></msup><mo separator="true">,</mo><msub><mi>x</mi><mn>3</mn></msub><mo>=</mo><mo>(</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><msup><mo>)</mo><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">x_{1}=(-1,2)^{T}, x_{2}=(1,2)^{T}, x_{3}=(-1,-2)^{T}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
@@ -63,488 +159,96 @@
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">综</mi><mi mathvariant="normal">上</mi><mi mathvariant="normal">所</mi><mi mathvariant="normal">述</mi><mi mathvariant="normal">：</mi><msub><mi>μ</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn><mo separator="true">,</mo><msub><mi>μ</mi><mn>1</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>3</mn></msub><mi mathvariant="normal">但</mi><mi mathvariant="normal">不</mi><mi mathvariant="normal">等</mi><mi mathvariant="normal">于</mi><mn>0</mn><mo separator="true">,</mo><mi mathvariant="normal">此</mi><mi mathvariant="normal">时</mi><msub><mi>w</mi><mn>2</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>1</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>3</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo separator="true">,</mo><msub><mi>w</mi><mn>1</mn></msub><mo>=</mo><msub><mi>w</mi><mn>2</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo separator="true">,</mo><mi>b</mi><mo>=</mo><mo>−</mo><mn>2</mn><mi mathvariant="normal">。</mi><mspace linebreak="newline"></mspace><mi mathvariant="normal">所</mi><mi mathvariant="normal">以</mi><mi mathvariant="normal">超</mi><mi mathvariant="normal">平</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">程</mi><mo>:</mo><msub><mi>w</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>w</mi><mn>2</mn></msub><mi>y</mi><mo>+</mo><mi>b</mi><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mi mathvariant="normal">代</mi><mi mathvariant="normal">入</mi><mi mathvariant="normal">得</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">程</mi><mi mathvariant="normal">为</mi><mi>y</mi><mo>=</mo><mn>0</mn><mi mathvariant="normal">。</mi></mrow><annotation encoding="application/x-tex">综上所述：\mu_{2}=0, \mu_{1}=\mu_{3} 但不等于 0, 此时 w_{2}=\mu_{1}=\mu_{3}=\frac{1}{2}, w_{1}=w_{2}=\frac{1}{2}, b=-2 。\\
 所以超平面方程:w_{1}x+w_{2}y+b=0,代入得方程为y=0。
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord cjk_fallback">综</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">所</span><span class="mord cjk_fallback">述</span><span class="mord cjk_fallback">：</span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord cjk_fallback">但</span><span class="mord cjk_fallback">不</span><span class="mord cjk_fallback">等</span><span class="mord cjk_fallback">于</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">此</span><span class="mord cjk_fallback">时</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mord cjk_fallback">。</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord cjk_fallback">所</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">超</span><span class="mord cjk_fallback">平</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">程</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">代</span><span class="mord cjk_fallback">入</span><span class="mord cjk_fallback">得</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">程</span><span class="mord cjk_fallback">为</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord cjk_fallback">。</span></span></span></span></span></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[数据库：SQLite的安装与基本语句]]></title>
-        <id>https://stevelau1015.github.io/post/shu-ju-ku-de-an-zhuang-yu-ji-ben-cao-zuo/</id>
-        <link href="https://stevelau1015.github.io/post/shu-ju-ku-de-an-zhuang-yu-ji-ben-cao-zuo/">
-        </link>
-        <updated>2021-04-07T16:11:01.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="数据库的安装与操作"><strong>数据库的安装与操作</strong></h1>
-<p>本文用于记录 Linux 下数据库程序使用的过程。练习了简单的SQL语句 。使用C语言完成了部分SQL数据库语句的功能。</p>
-<h3 id="写在最前">写在最前</h3>
-<p>本次安装的版本为3.22.0。</p>
-<p>.out命令后不可以添加<code>；</code>：因为会输出后缀为<code>txt；</code>的文件。</p>
-<p>其他命令需要<code>；</code>：否则按下<code>enter</code>键后会换行，读取命令。</p>
-<h3 id="sql的基础语句"><strong>SQL的基础语句</strong></h3>
-<ul class="contains-task-list">
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-3553400"><label class="task-list-item-label" for="task-item-3553400"> 创建：create table 表名 (字段设定列表)； √</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-3122034"><label class="task-list-item-label" for="task-item-3122034"> 选择：select * from table1 where 范围；√</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-2544111"><label class="task-list-item-label" for="task-item-2544111"> 插入：insert into table1(field1,field2) values(value1,value2) √</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-421812"><label class="task-list-item-label" for="task-item-421812"> 排序：select * from table1 order by field1,field2 [desc]√</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9782403"><label class="task-list-item-label" for="task-item-9782403"> 求和：select sum(field1) as sumvalue from table1√</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3025033"><label class="task-list-item-label" for="task-item-3025033"> 删除：delete from table1 where 范围</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-147990"><label class="task-list-item-label" for="task-item-147990"> 更新：update table1 set field1=value1 where 范围</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2315675"><label class="task-list-item-label" for="task-item-2315675"> 查找：select * from table1 where field1 like ’%value1%’</label></p>
-</li>
-<li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9066943"><label class="task-list-item-label" for="task-item-9066943"> 总数：select count * as totalcount from table1</label></p>
-</li>
-</ul>
-<blockquote>
-<h3 id="实验平台与环境">实验平台与环境：</h3>
-<p>Linux version 5.3.0-28-generic</p>
-<p>gcc version 7.4.0</p>
-<p>Ubuntu 7.4.0-1ubuntu1~18.04.1</p>
-<p>SQLite 3.22.0</p>
-</blockquote>
-<h3 id="正式过程">正式过程：</h3>
-<h4 id="安装">安装</h4>
-<pre><code class="language-bash">sudo apt install sqlite3
-</code></pre>
-<p>!(https://stevelau1015.github.io/post-images/1617812002471.png)</p>
-<center>图2.1 安装成功显示如图</center>
-<h4 id="建库与建表">建库与建表</h4>
-<pre><code class="language-bash">leonlau@ubuntu:~$ sqlite3 stu.db
-SQLite version 3.22.0 2018-01-22 18:45:57
-Enter &quot;.help&quot; for usage hints.
-</code></pre>
-<h4 id="创建"><strong>创建</strong></h4>
-<pre><code class="language-sqlite">create table student(ID integer primary key,Name varchar(20),Age integer,Sex varchar(10));
-</code></pre>
-<h4 id="插入"><strong>插入</strong></h4>
-<pre><code class="language-sqlite">sqlite&gt; insert into student values(10001,'zhangsan',20,'female');
-sqlite&gt; insert into student values(10002,'lisi',19,'male');
-</code></pre>
-<h4 id="选择"><strong>选择</strong></h4>
-<pre><code class="language-sqlite">sqlite&gt; select * from student;
-</code></pre>
-<h4 id="排序"><strong>排序</strong></h4>
-<p>（默认为升序）</p>
-<pre><code class="language-sqlite">sqlite&gt; .out std
-sqlite&gt; select * from student order by Age;
-</code></pre>
-<h4 id="输出结果">输出结果</h4>
-<p>![image-20210407155809290](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407155809290.png)</p>
-<center>图2.2 文件结构如图</center>
-<pre><code class="language-bash">sqlite&gt; .output result.txt #以所给文件的后缀输出
-sqlite&gt; .output sdout #标准输出到屏幕
-</code></pre>
-<p>文件内结构为查询出的两条记录。</p>
-<p>![image-20210407160510007](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407160510007.png)</p>
-<center>图2.3 内部显示如图</center>
-<h4 id="使用c语言实现sql语句">使用c语言实现sql语句</h4>
-<pre><code class="language-c">int main(){
-     sqlite3 *db=NULL;
-     int rc, i=0, nrow,ncol;
-     char *Errormsg, **Result;
-	
-     rc=sqlite3_open(&quot;test.db&quot;,&amp;db);
-     if(rc){
-	fprintf(stderr,&quot;can't open database:%s\n&quot;,sqlite3_errmsg(db));
-	sqlite3_close(db);
-	return 1;
-     }
-     else
-	printf(&quot;open database successly!\n&quot;);
 
-    char *sql=&quot;create table student(ID integer primary key,Name varchar(20),Age integer,Sex varchar(10))&quot;;
-    sqlite3_exec(db,sql,0,0,&amp;Errormsg);
-
-    sql=&quot;insert into student values(10001,'zhangsan',20,'female')&quot;;
-    sqlite3_exec(db,sql,0,0,&amp;Errormsg);
-
-    sql=&quot;insert into student values(10002,'lisi',19,'male')&quot;;
-    sqlite3_exec(db,sql,0,0,&amp;Errormsg);
-
-    sql=&quot;select * from student&quot;;
-    sqlite3_get_table(db,sql,&amp;Result,&amp;nrow,&amp;ncol,&amp;Errormsg);
-	    printf(&quot;row=%d column=%d\n&quot;,nrow,ncol);
-	    printf(&quot;the result is:\n&quot;);
-	        for(i=0;i&lt;(nrow+1)*ncol;i++)
-		printf(&quot;Result[%d]=%s\n&quot;,i,Result[i]);
-	sqlite3_free(Errormsg);
-	sqlite3_free_table(Result);
-	sqlite3_close(db);
-	return 0;
-}
-</code></pre>
-<p><strong>结果如图所示：</strong>![image-20210407234501927](file://C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407234501927.png?lastModify=1617810566)</p>
-<center>图2.4 结果：使用C语言完成SQL语句的功能</center>
-<h3 id="其他操作练习">其他操作练习：</h3>
-<p>**[w3schools]**为我们提供了<a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">The Try-SQL Editor</a>，一个包含8张表的小型数据库，我基于此完成了剩余的基础操作练习</p>
-<h4 id="插入-2"><strong>插入</strong></h4>
-<pre><code class="language-sql">insert into orders(OrderID,CustomerID,EmployeeID,OrderDate,ShipperID) values(12345,000,0,2021-07-04,0);
-</code></pre>
-<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407164636816.png" alt="image-20210407164636816" style="zoom: 67%;" />
-<center>图2.5 Orders表增加了一条记录</center>
-<h4 id="求和"><strong>求和</strong></h4>
-<pre><code class="language-sql">select sum(Quantity) as sumvalue FROM [OrderDetails]
-</code></pre>
-<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210407164710151.png" alt="image-20210407164710151" style="zoom: 50%;" />
-<center>图2.6 OrdersDetails表的quantity总数为12743</center>
-<h3 id="总结">总结：</h3>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
 <ul>
-<li>在这次实验里我学到了一些基础SQL语句的使用，也使用c语言自己编写实现语句的功能。</li>
-<li>还有删除、更新、查找、总数等几个语句需要由于事件原因没能完成，需要在之后对数据库专门的学习里补充完整。</li>
-<li>句尾的<code>；</code>可能因为数据库版本的原因需要具体情况具体分析。</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[数据库：基本概念——以SQLite3为例]]></title>
-        <id>https://stevelau1015.github.io/post/aboutdb/</id>
-        <link href="https://stevelau1015.github.io/post/aboutdb/">
-        </link>
-        <updated>2021-03-30T14:14:56.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="大部分关于-sqlite3">大部分关于 SQLite3</h2>
-<p>Nosql使用了倒排索引，Mysql用了B+树，innodb用B树，并不是一无所用，但是每种数据结构都有其使用的背景，读和写的比例一般为10：1；</p>
-<p>事务是由下层的存储引擎实现的。如果在事务中混合使用了事务型和非事务型的表（例如InnoDB（（一种引擎））和MyISAM（（另一种引擎））表）,在正常提交的情况下不会有什么问题。</p>
-<p>SQLite的特性：</p>
-<ol>
-<li>
-<p>支持ACID</p>
-</li>
-<li>
-<p>零配置，无需安装和管理配置；独立运行，不需要其他依赖，打其他支持包</p>
-</li>
-<li>
-<p>储存在单一磁盘文件中的一个完整数据库；</p>
-</li>
-<li>
-<p>数据库文件可以在不同字节顺序的机器间自由共享；（大端小端格式都可以）</p>
-</li>
-<li>
-<p>足够小，全部源代码3w行，编译完大概250kb；</p>
-</li>
-<li>
-<p>操作快，小型化数据库。</p>
-</li>
-<li>
-<p>支持事务</p>
-<blockquote>
-<p>事务是逻辑上的⼀组操作，要么都执⾏，要么都不执⾏。体现<strong>原子性</strong></p>
-<p>事务最经典也经常被拿出来说例⼦就是转账了。假如⼩明要给⼩红转账1000元，这个转账会涉及到两个关键操作就是：将⼩明的余额减少1000元，将⼩红的余额增加1000元。万⼀在这两个操作之间突然出现错误⽐如银⾏系统崩溃，导致⼩明余额减少⽽⼩红的余额没有增加，这样就不对了。事务就是保证这两个关键操作要么都成功，要么都要失败。</p>
-<p><strong>一致性</strong>，完整性约束a+b=10，一个事务改变了a，b也应该随时改变。用完整性来约束</p>
-<p>​			官方文档：	The database remains in a consistent state at all times — after each commit or rollback, and while transactions are in progress. If related data is being updated across multiple tables, queries see either all old values or all new values, not a mix of old and new values.</p>
-<p><strong>事务的一致性C是基于A,I,D的</strong>，即不考虑事务的并发（I）和数据库的可靠性（D），事务操作都是原子的情况下（A），如何实现数据的一致性：</p>
+<li><a href="#%E9%97%AE%E9%A2%98">问题:</a></li>
+<li><a href="#%E6%A8%A1%E5%9E%8B">模型:</a>
 <ul>
-<li>完整性约束：可以通过<strong>SQL构建</strong>，比如not null, 主键约束，参照约束，check约束等，这类约束特点是：<strong>数据表设计者建立——数据库自动检查——比较简单，不构成性能问题</strong>，但是<strong>无法胜任复杂的约束</strong></li>
-<li>程序的一致性约束：取决于业务的需求，即事务中间进行的多个操作的要保证业务上的一致性约束需求。譬如：简单的打款，你可以通过建表时设置账户余额字段不能为负数来使得余额不足时无法打款，这是完整性约束；但是，你也可以不设置账户不允许负数的规则，而是在事务执行过程里自己做判断来实现这一一致性约束。如果是比打款更加复杂的一致性（取决于业务），显然业务有各种各样的一致性约束需求，如果都通过数据库定义来实现，一是<strong>过于复杂的约束检查在性能上可能会有问题</strong>，二来也<strong>使得数据库设计有些臃肿：业务耦合太多</strong>，因此，这部分的一致性需要应用程序设计者自己来实现，即事务里具体执行的操作。</li>
+<li><a href="#1%E4%BB%A3%E6%95%B0%E8%A7%A3%E6%B3%95">1.代数解法</a>
+<ul>
+<li><a href="#%E6%9E%84%E5%BB%BA%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%87%BD%E6%95%B0">构建拉格朗日函数：</a></li>
+<li><a href="#%E6%B1%82%E5%81%8F%E5%BE%AE%E5%88%86">求偏微分：</a></li>
+<li><a href="#%E7%94%A8kkt%E6%9D%A1%E4%BB%B6%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E7%BA%A6%E6%9D%9F">用KKT条件对其进行约束:</a></li>
+<li><a href="#%E5%88%86%E6%83%85%E5%86%B5%E8%BF%9B%E8%A1%8C%E8%AE%A8%E8%AE%BA">分情况进行讨论:</a></li>
 </ul>
-<p>结论：<strong>事务里的一致性，由数据库自动检查和程序员两方面来保障</strong>。</p>
-<p><strong>独立性</strong>（隔离性 isolation），两个以上的事务不会出现交错执行打印文件同时点打印，两个文档都是完整的</p>
-<p><strong>持久性</strong>，事务运行成功后，系统的更新是永久的，不会无缘无故地回滚。改成绩退系统进系统发现成绩没变就是不可持久性</p>
-</blockquote>
 </li>
-<li>
-<p>Transaction保证完整性，打断之后能继续，多条语句一起提交也会比一条一条提交提高运行速度,取消了多条之间的接受解释操作等操作 （具体in 数据库的操作里待补充）</p>
+</ul>
 </li>
-<li>
-<p>SQLite的高级用法 ，ANSI SQL92 支持</p>
-<p>视图：SQLite的高级用法（知道每张表之间的关系，库里有几张表，表都是什么关系）</p>
-<blockquote>
-<p>视图（View）只不过是通过相关的名称存储在数据库中的一个 SQLite 语句。视图（View）实际上是一个以预定义的 SQLite 查询形式存在的表的组合。</p>
-<p>视图（View）可以包含一个表的所有行或从一个或多个表选定行。视图（View）可以从一个或多个表创建，这取决于要创建视图的 SQLite 查询。、</p>
-<p>视图（View）是一种虚表，允许用户实现以下几点：</p>
-<p>用户或用户组查找结构数据的方式<strong>更自然或直观</strong>。</p>
-<p>限制数据访问，用户只能看到<strong>有限的数据</strong>，而不是完整的表。</p>
-<p>汇总各种表中的数据，用于生成报告。</p>
-<p>SQLite 视图是只读的，因此可能无法在视图上执行 DELETE、INSERT 或 UPDATE 语句。但是可以在视图上创建一个<strong>触发器</strong>，当尝试 DELETE、INSERT 或 UPDATE 视图时<strong>触发，需要做的动作在触发器内容中定义。</strong></p>
-</blockquote>
-<p>触发器：SQLite的高级用法</p>
-<blockquote>
-<p>触发器（trigger）：监视某种情况，并触发某种操作，它是提供给程序员和数据分析员来<strong>保证数据完整性</strong>的一种方法，它是与表事件相关的<strong>特殊的存储过程</strong>，它的执行不是由程序调用，也不是手工启动，而是由事件来触发，例如当对一个表进行操作（ insert，delete， update）时就会激活它执行。</p>
-</blockquote>
-<p>事务，嵌套SQL</p>
-<h2 id="查找-like-模糊字段">查找 like 模糊字段</h2>
-<p>赋值号的话就用string匹配</p>
-<p>select *like ‘ %value1% ’</p>
-<h2 id="回滚">回滚</h2>
-<p>程序或数据处理错误，将程序或数据恢复到上一个正确的状态的行为，包括程序回滚和数据回滚等类型</p>
-<h2 id="数据库快照">数据库快照</h2>
-<p>数据库在某一时间点的视图</p>
-<h2 id="视图">视图</h2>
-<p>包含一系列带有行数据和列数据的表，只是由SQL语句拼出来的，具有普通表的结构，但是不实现数据储存，和真实的表看起来一样</p>
+</ul>
 </li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Linux：树莓派内核编译]]></title>
-        <id>https://stevelau1015.github.io/post/raspberrypi-tools/</id>
-        <link href="https://stevelau1015.github.io/post/raspberrypi-tools/">
-        </link>
-        <updated>2021-03-25T05:51:10.000Z</updated>
-        <content type="html"><![CDATA[<p>最近在系统地学习嵌入式，把这篇之前写过的文档先update上来</p>
-<h2 id="为什么要使用内核编译">为什么要使用内核编译</h2>
-<p>在编译链接同等规模的代码时，PC机所用的时间应少于树莓派所用时间，通过交叉编译的方法能提高速度。</p>
-<h3 id="建立交叉编译环境">建立交叉编译环境</h3>
-<p>建立交叉编译环境就是在PC机上安装能够编译树莓派软件的工具链，进行树莓派软件的编译。</p>
-<p>工作分为两步，下载交叉编译器和设置环境变量。</p>
-<h4 id="1下载安装树莓派交叉编译器">1.下载安装树莓派交叉编译器</h4>
-<p>首先下载必要的软件和工具</p>
-<pre><code class="language-bash">sudo apt-get install build-essential git
-</code></pre>
-   <img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325225235255.png" alt="1.1下载必要的工具" style="zoom:67%;" />
-<center>图1.1 下载git相关工具并解压</center>
-<pre><code class="language-bash">#在home路径下建立一个文件夹取名为rpi
-mkdir rpi
-#进入该目录并执行clone操作
-cd rpi
-git clone git://github.com/raspberrypi/tools.git
-#进入tools下的arm-bcm2708子目录，交叉编译器在此目录下。
-cd ~/rpi/tools/arm-bcm2708/
-#64位系统使用的工具所在文件夹为 
-$(gcc-linaro-arm-linux-gnueabihf-raspbian-x64)
-</code></pre>
-<img src="C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325230622364.png" alt="image-20210325230622364"  />
-<center>图1.2 建立目录并找到交叉编译器所在位置</center>
-<h4 id="2设置环境变量">2.设置环境变量</h4>
-<p>在<code>/.bashrc</code>文件中加入<code>gcc</code>交叉工具链目录。</p>
-<pre><code class="language-bash">sudo nano ~/.bashrc
-</code></pre>
-<p>打开一个隐藏文件，在该文件最后一行加入交叉工具链所在目录。</p>
-<pre><code class="language-bash">export PATH=$PATH:$HOME/rpi/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
-</code></pre>
-<p>请注意<code>~</code>符号表示<code>HOME</code>路径，<code>.bashrc</code>为隐藏文件。注意<code>PATH</code>代表环境变量，<code>:</code>冒号代表追加。<code>x</code>是小写的。</p>
-<p>![image-20210325233216305](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325233216305.png)</p>
-<center>图2.1 加入交叉工具链所在目录</center>
-<p><code>Ctrl-O</code>保存并退出文件，接着执行以下指令以便立即更新当前控制台所包含的环境变量。</p>
-<pre><code class="language-bash">source .bashrc
-</code></pre>
-<p>![image-20210325231723275](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325231723275.png)</p>
-<center>图2.2 执行命令更新环境变量</center>
-<p>为了测试交叉工具链是否安装成功，可在控制台中输入：</p>
-<pre><code class="language-bash">arm-linux-gnueabihf-gcc -v
-</code></pre>
-<p>得到下图，证明交叉工具链安装成功。</p>
-<p>![image-20210325233013224](C:\Users\leon lau\AppData\Roaming\Typora\typora-user-images\image-20210325233013224.png)</p>
-<center>图2.3 验证交叉工具链是否安装成功</center>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Linux：内核与Makefile]]></title>
-        <id>https://stevelau1015.github.io/post/linux-core-makefile-related/</id>
-        <link href="https://stevelau1015.github.io/post/linux-core-makefile-related/">
-        </link>
-        <updated>2021-03-13T11:48:24.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="linux内核及makefile学习">Linux内核及Makefile学习</h1>
-<p>解释下面的makefile文件的语句，说明它的运行过程。</p>
-<h2 id="语句解释">语句解释</h2>
-<pre><code class="language-bash">ifneq ($(KERNELRELEASE),) 	#如果KERNELRELEASE的返回值是非空的
-	MODULE_NAME = hellomodule 	#把hellomodule赋给MODULE_NAME
-	$(MODULE_NAME)-objs := hello.o 	#用hello.o生成hellomodule模块
-	obj-m := $(MODULE_NAME).o 	#编译后将生成hellomodule.o模块（-m 忽略其他版本兼容性）
-else 	#是空的，那么路径设置如下
-	KERNEL_DIR = /lib/modules/`uname -r`/build  	#设置路径如左build文件夹
-	MODULEDIR := $(shell pwd) 	#把当前目录的地址赋给MODULEDIR
+</ul>
 
-.PHONY: modules  	#“.PHONY”表示，modules 是个伪目标文件。
-default: modules
+              </div>
+            </div>
+          </article>
+        </div>
 
-modules: 	
-	make -C $(KERNEL_DIR) M=$(MODULEDIR) modules #程序自动到你所指定的KERNEL_DIR目录中查找模块源码，编译，生成KO文件。
-	 # -C 选项的作用是指将当前工作目录转移到你所指定的位置。
-	 # “M=”选项的作用是，当用户需要以某个内核为基础编译一个外部模块的话，需要在make modules 命令中加入“M=dir”，
-clean distclean: 	#相当于clean
-	rm -f *.o *.mod.c .*.*.cmd *.ko  #清空目标文件（.o 和执行文件）的规则
-	rm -rf .tmp_versions  # 删除所有的暂时版本
-endif
-</code></pre>
-<h2 id="运行过程">运行过程</h2>
-<p>第一次运行，因为内核还未运行过，<code>KERNELRELEASE</code> 的值是空的，直接执行<code>make modules</code>语句，调用<code>$(KERNEL_DIR)</code>和<code>$(MODULEDIR)</code> ，利用<code>else</code>里设置好的值，设置<code>KERNEL_DIR</code>的路径在<code>bulid</code>文件夹下，设置<code>MODULEDIR</code>的路径为当前目录的地址。</p>
-<p>第二次运行时，因为<code>KERNELRELEASE</code>的返回值是非空的，把<code>hellomodule</code>赋给<code>MODULE_NAME</code>，用<code>hello.o</code>生成<code>hellomodule.o</code>，编译后将生成<code>hellomodule.o</code>模块。当内核源码tree被找到后，调用第二个<code>make</code>,到你所指定的<code>KERNEL_DIR</code>目录中查找模块源码，编译，生成<code>KO</code>文件。构建模块。最后进行<code>clean</code>。</p>
-<blockquote>
-<p>This makefile is read twice on a typical build. When the makefile is invoked from the command line, it notices that the KERNELRELEASE variable has not been set. It locates the kernel source directory by taking advantage of the fact that the symbolic link build in the installed modules directory points back at the kernel build tree. If you are not actually running the kernel that you are building for, you can supply a KERNELDIR= option on the command line, set the KERNELDIR environment variable, or rewrite the line that sets KERNELDIR in the makefile. Once the kernel source tree has been found, the makefile invokes the default: target, which runs a second make command (parameterized in the makefile as $(MAKE))to invoke the kernel build system as described previously. On the second reading, the makefile sets obj-m, and the kernel makefiles take care of actually building the module.</p>
-<p>——《LinuxDeviceDrivers,ThirdEdition》</p>
-<p>这个makefile在一个典型的编译过程中会被读取两次。当从命令行调用makefile时，它注意到KERNELRELEASE变量没有被设置。它利用安装模块目录下的符号链接构建指向内核构建树的事实来定位内核源目录。如果你没有实际运行你要编译的内核，你可以在命令行中提供一个KERNELDIR=选项，设置KERNELDIR环境变量，或者重写makefile中设置KERNELDIR的行。一旦找到了内核源码树，makefile就会调用default：target，运行第二个make命令(在makefile中参数化为$(MAKE))来调用前面描述的内核构建系统。在第二次读取时，makefile设置obj-m，内核makefile负责实际构建模块。</p>
-</blockquote>
-<h2 id="命令含义">命令含义</h2>
-<p>ifneq 比较两个参数是否相同，这里被比较参数为空。</p>
-<p>“-r” “--no-builtin-rules” ，“-r” 这个参数的作用是禁止 make 使用任何隐含规则。</p>
-<p>：= 用变量来定义变量。</p>
-<p>uname打印当前计算机和操作系统的名称、版本。</p>
-<p>shell 函数把执行操作系统命令后的输出作为函数返回。</p>
-<p>反引号“`”和shell函数是相同的功能。</p>
-<p>pwd 会打印出当前的 Makefile 目录。</p>
-<p>伪目标</p>
-<blockquote>
-<p>因为，我们并不生成“modules”这个文件。“伪目标”并不是一个文件，只是一个标签， 由于“伪目标”不是文件，所以 make 无法生成它的依赖关系和决定它是否要执行。我们只有通过显示地指明这个“目标”才能让其生效。当然，“伪目标”的取名不能和文件名重名，不然其就失去了“伪目标”的意义了。 当然，为了避免和文件重名的这种情况，我们可以使用一个特殊的标记“.PHONY”来 显式地指明一个目标是“伪目标”，向 make 说明，不管是否有这个文件，这个目标就是“伪目标”。</p>
-<p>——《跟我一起写Makefile》</p>
-</blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[统计学：时间序列分析]]></title>
-        <id>https://stevelau1015.github.io/post/time-series-analysis/</id>
-        <link href="https://stevelau1015.github.io/post/time-series-analysis/">
-        </link>
-        <updated>2021-01-21T12:10:05.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="时间序列">时间序列</h1>
-<h2 id="stationary">Stationary</h2>
-<h3 id="如何定义stationary">如何定义stationary：</h3>
-<p>均值、方差为常数，不包含周期性（季节性？）<br>
-<img src="https://img-blog.csdnimg.cn/20210111164423841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h3 id="如何检验是否stationary">如何检验是否stationary</h3>
-<p>non-stationary的一些反例<br>
-<img src="https://img-blog.csdnimg.cn/20210111164826533.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h3 id="如何把不stat变stat用高维变量">如何把不stat变stat，用高维变量</h3>
-<h2 id="白噪音">白噪音</h2>
-<p>三个条件全部满足的称为白噪音<br>
-<img src="https://img-blog.csdnimg.cn/20210111220331296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-实际分析的是signal<br>
-<img src="https://img-blog.csdnimg.cn/20210111220417716.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="autoregressive-model">Autoregressive Model</h2>
-<p>PACF 实际上忽略了band内（红线），取了band外的部分作为特征（自变量）建立模型。</p>
-<h1 id="问题-这个柱状图的纵坐标就是销量吗">问题  这个柱状图的纵坐标就是销量吗？</h1>
-<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20210111220725967.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></figure>
-<h2 id="移动平均模型-moving-average">移动平均模型 moving average</h2>
-<p>疯子教授<br>
-窗口移动，平均值不变，本图均为10<br>
-MA（2）：与前两个月有关。<br>
-上式代表我的预测<br>
-下式代表真实的值，两者的区别只是一个error epsilon ε<br>
-<img src="https://img-blog.csdnimg.cn/20210111222436596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="arma">ARMA</h1>
-<p>一部分AR（小线性和前月销量有关）  一部分MA（和前月错误ε有关）<br>
-<img src="https://img-blog.csdnimg.cn/2021011123043771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-选择ARMA（ ar，ma）的参数，AR的参数由PACF确定，MA的参数由ACF确定<br>
-<img src="https://img-blog.csdnimg.cn/20210111232711465.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="arima">ARIMA</h1>
-<p>i integrand 用来满足stationary这个要求<br>
-用后月减前月的值变成新的Y<br>
-<img src="https://img-blog.csdnimg.cn/20210111232457419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-完整的表达式（见右侧橘色部分）以及已知Zt如何倒推回At<br>
-<img src="https://img-blog.csdnimg.cn/20210111233534835.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[机器学习：CS229 ]]></title>
-        <id>https://stevelau1015.github.io/post/cs229-notes/</id>
-        <link href="https://stevelau1015.github.io/post/cs229-notes/">
-        </link>
-        <updated>2021-01-08T08:38:34.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="cs229-学习笔记">CS229 学习笔记</h1>
-<h2 id="梯度下降应该同步更新">梯度下降应该同步更新</h2>
-<p>缺少图片</p>
-<h2 id="lr-设置要合理">lr 设置要合理</h2>
-<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20210108163016212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></figure>
-<h3 id="评价函数里对所有样本做了遍历于是为bgd-batch">评价函数里对所有样本做了遍历，于是为BGD Batch</h3>
-<figure data-type="image" tabindex="2"><img src="https://img-blog.csdnimg.cn/20210108163209784.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt=" batch" loading="lazy"></figure>
-<h1 id="奇异矩阵没有逆矩阵">奇异矩阵没有逆矩阵</h1>
-<figure data-type="image" tabindex="3"><img src="https://img-blog.csdnimg.cn/20210108163253317.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></figure>
-<h2 id="特征缩放">特征缩放</h2>
-<figure data-type="image" tabindex="4"><img src="https://img-blog.csdnimg.cn/20210108163332197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></figure>
-<h3 id="平均标准化">平均标准化<img src="https://img-blog.csdnimg.cn/20210108163347730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></h3>
-<h2 id="画这个图像来确认梯度下降是否收敛">画这个图像来确认梯度下降是否收敛</h2>
-<figure data-type="image" tabindex="5"><img src="https://img-blog.csdnimg.cn/20210108163528164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="画这个图像来确认梯度下降是否收敛" loading="lazy"></figure>
-<h3 id="设置合适的学习率不然梯度下降效率会很慢">设置合适的学习率，不然梯度下降效率会很慢</h3>
-<figure data-type="image" tabindex="6"><img src="https://img-blog.csdnimg.cn/20210108163701302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="合适的学习率，不然梯度下降效率会很慢" loading="lazy"></figure>
-<h2 id="octave教学">Octave教学</h2>
-<figure data-type="image" tabindex="7"><img src="https://img-blog.csdnimg.cn/20210108163732959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="高斯分布" loading="lazy"></figure>
-<h2 id="normal-equation-正规方程">Normal Equation 正规方程</h2>
-<p>每行1个样本 包含了样本1的好多个feature<br>
-每个点是一个feature的值<br>
-<img src="https://img-blog.csdnimg.cn/20210108174838623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="X矩阵 设计矩阵 每行1个样本 每个点是一个feature的值" loading="lazy"></p>
-<h2 id="用normal-equation时缩放是没有必要的">用normal equation时，缩放是没有必要的</h2>
-<figure data-type="image" tabindex="8"><img src="https://img-blog.csdnimg.cn/20210108175558775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="normal equation 左上" loading="lazy"></figure>
-<h1 id="logistic-regression-新cost-函数来自于极大似然估计">logistic regression 新cost 函数来自于极大似然估计</h1>
-<figure data-type="image" tabindex="9"><img src="https://img-blog.csdnimg.cn/20210109093625358.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="极大似然估计" loading="lazy"></figure>
-<h3 id="和linear-regression-的区别在于hx的假设不一样了">和linear regression 的区别在于h(x)的假设不一样了</h3>
-<p><img src="https://img-blog.csdnimg.cn/20210109094042619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-相当于把非线性的sigmoid函数塞进了h（x）里<br>
-线搜索使得不需要手动调整α<br>
-<img src="https://img-blog.csdnimg.cn/20210109094622667.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h3 id="多分类问题">多分类问题</h3>
-<p>输入相同只需要把三个分类器里算出的值比较一下，找出值最大的那一个分类器，那么将被分入这个分类器对应的那一类<br>
-<img src="https://img-blog.csdnimg.cn/20210109100754795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="overfitting-high-variance-过拟合高方差">overfitting  High variance 过拟合=高方差</h2>
-<p>泛化能力，模型应用到新样本的能力<br>
-<img src="https://img-blog.csdnimg.cn/2021010910141780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-如何识别overfitting 后期会学习<br>
-如何解决overfitting<br>
-两种方法 1：减少feature数量<br>
-2：正则化 regularization（每个feature贡献一部分模型）		<img src="https://img-blog.csdnimg.cn/20210109101929124.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-正则化：加了一些惩罚项，目标是最小化等号右边的式子，只有θ3和θ4接近于零的时候才让等号右边的式子最小<br>
-<img src="https://img-blog.csdnimg.cn/20210109102312926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-正则化必定可以让normal equation 的前面这一项变得可逆<br>
-<img src="https://img-blog.csdnimg.cn/20210109103716604.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-对所有正则化来说，lamda是用来取舍fit the trainset 和 generalization的一种办法，一种比重，一种比例</p>
-<h1 id="神经网络">神经网络</h1>
-<p><img src="https://img-blog.csdnimg.cn/20210109111207288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="数学假设" loading="lazy"><br>
-右上角是层数，线性，sigmoid，再线性，再sigmoid，输出</p>
-<h2 id="cost-function-lesson-9-1">cost function （lesson 9-1）</h2>
-<p>一大坨和<br>
-<img src="https://img-blog.csdnimg.cn/20210109173830711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="后向传播-lesson-9-2">后向传播 （lesson 9-2）</h2>
-<p>左下到右下的数学推导欠缺。<br>
-但是可以利用a和δ求出偏导<br>
-<img src="https://img-blog.csdnimg.cn/20210109173523735.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h3 id="具体实现的流程">具体实现的流程</h3>
-<p>不需要δ（1）和δ（L） ：输入层和输出层没有误差<br>
-<img src="https://img-blog.csdnimg.cn/20210109174241730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-j=0，对应着偏差项，无需正则化<br>
-<img src="https://img-blog.csdnimg.cn/20210109174538200.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-最后算出来一个D值，就是损失函数里的偏导项，可以在这个基础上继续梯度下降<img src="https://img-blog.csdnimg.cn/20210109174734539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="零初始化的重要性全部一样的初始权重将导致一模一样的输入结果所有网络节点都一样计算没有意义">零初始化的重要性，全部一样的初始权重将导致一模一样的输入结果，所有网络节点都一样，计算没有意义</h2>
-<h1 id="建议的策略-不要过早优化">建议的策略 不要过早优化</h1>
-<figure data-type="image" tabindex="10"><img src="https://img-blog.csdnimg.cn/20210110181048782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></figure>
-<h1 id="误差分析">误差分析</h1>
-<figure data-type="image" tabindex="11"><img src="https://img-blog.csdnimg.cn/20210110181519866.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></figure>
-<h1 id="不均衡的分类问题-skewed">不均衡的分类问题 skewed</h1>
-<p>把较少的那一类设置为y=1 ，阳性类，由此得出precision和recall很难欺骗我们。<br>
-<img src="https://img-blog.csdnimg.cn/20210110183607503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="precision和recall的权衡">precision和recall的权衡</h2>
-<p>高 precision 设置阈值（threshold）为0.7<br>
-高 recall 设置阈值为0.3<br>
-<img src="https://img-blog.csdnimg.cn/20210110183359334.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-用一个<em>积在河上飞</em>的F1score去评价precision和recall的权衡<br>
-<img src="https://img-blog.csdnimg.cn/20210111144710173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="是否需要更大的数据集">是否需要更大的数据集</h1>
-<p>当人类专家能从给定信息里判断，那么不需要<br>
-<img src="https://img-blog.csdnimg.cn/20210110185218257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-更大的数据集通常用来使系统 low variance<br>
-复杂的算法使系统 low bias<br>
-<img src="https://img-blog.csdnimg.cn/20210110185512263.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="12-1-svm">12-1 Svm</h1>
-<p>SVM和LR的区别：损失函数做了替换，正则项的系数更考虑贴合前一项，也就是更考虑和样本的符合程度。<br>
-<img src="https://img-blog.csdnimg.cn/20210215112322391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="12-2-svm-c不太大的时候会合理忽略异常大间隔导致了鲁棒性用尽量大的间隔把样本分开">12-2 svm C不太大的时候会合理忽略异常，大间隔导致了鲁棒性，用尽量大的间隔把样本分开</h2>
-<h2 id="12-3-θ_0-0边界过原点-时候的分类效果数学推导">12-3 θ_0 = 0(边界过原点） 时候的分类效果，数学推导</h2>
-<p>设置边界如左将使得正负两样本投影到θ上的向量变小，这样使得为满足s.t.的话，θ的模的平方，势必要很大，不符合第一行minimal 的假设。所以能看出SVM是大间隔的分类器，为了让p_1,p_2.p_3（间隔margin）更大。<br>
-<img src="https://img-blog.csdnimg.cn/20210215120106497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h1 id="跳过了12-1~13-5的svm和k-means聚类待补充共11个视频">跳过了12-1~13-5的SVM和K-means聚类（待补充）共11个视频</h1>
-<h1 id="降维pca-主成分分析">降维：PCA 主成分分析</h1>
-<p>formula：目的是找到一个向量，使得所有点投影到这个方向上延伸的直线的投影距离最短<br>
-<img src="https://img-blog.csdnimg.cn/2021011114492386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-pca不是linear regression<br>
-计算误差的方式不一样，linear是算竖直距离；PCA求的是最短距离<br>
-<img src="https://img-blog.csdnimg.cn/20210111145246450.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-有字幕版本的14-5 https://www.bilibili.com/video/av95751735</p>
-<h2 id="如何查看合适的维度选择降到几维呢">如何查看合适的维度，选择降到几维呢？</h2>
-<p>用svd解出的S值，就可以算出协方差，covariance是否小于0.05/0.01，得到合理的K值<br>
-<img src="https://img-blog.csdnimg.cn/20210111151925385.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"><br>
-<img src="https://img-blog.csdnimg.cn/20210111152405951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-<h2 id="恢复压缩">恢复压缩</h2>
-<p>两边左乘一个svd中的U<br>
-<img src="https://img-blog.csdnimg.cn/20210111153010877.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg4ODM1NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" loading="lazy"></p>
-]]></content>
-    </entry>
-</feed>
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://stevelau1015.github.io/post/shu-ju-ku-de-an-zhuang-yu-ji-ben-cao-zuo/">
+              <h3 class="post-title">
+                数据库：SQLite的安装与基本语句
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/stevelau1015/" target="_blank"> Leon21 </a>
+  <a class="rss" href="https://stevelau1015.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
