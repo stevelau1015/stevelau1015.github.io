@@ -2,11 +2,11 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>C++：类实例化  VS报错E0144 | leon21</title>
+<title>发了一篇文章 | leon21</title>
 <link rel="shortcut icon" href="https://stevelau1015.github.io/favicon.ico?v=1630774749222">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stevelau1015.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="C++：类实例化  VS报错E0144 | leon21 - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="发了一篇文章 | leon21 - Atom Feed" href="https://stevelau1015.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
@@ -20,13 +20,9 @@
 </script>
 
 
-    <meta name="description" content="问题
-最近在学习拷贝构造函数的时候遇到了一个类实例化的问题，
-VS2017报错为
-E0144&quot;const char *&quot; 类型的值不能用于初始化 &quot;char *&quot; 类型的实体
-对此提出四种解决方法。
-..." />
-    <meta name="keywords" content="C++" />
+    <meta name="description" content="https://doi.org/10.1145/3444757.3485064.
+" />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -96,79 +92,25 @@ E0144&quot;const char *&quot; 类型的值不能用于初始化 &quot;char *&quo
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              C++：类实例化  VS报错E0144
+              发了一篇文章
             </h2>
             <div class="post-info">
               <span>
-                2021-06-03
+                2021-09-05
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
-              
-                <a href="https://stevelau1015.github.io/tag/MdpGuyX9F/" class="post-tag">
-                  # C++
-                </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h1 id="问题">问题</h1>
-<p>最近在学习拷贝构造函数的时候遇到了一个类实例化的问题，</p>
-<p>VS2017报错为</p>
-<p>E0144&quot;const char *&quot; 类型的值不能用于初始化 &quot;char *&quot; 类型的实体</p>
-<p>对此提出四种解决方法。</p>
-<h1 id="解决方案">解决方案</h1>
-<h2 id="解决方案一">解决方案一</h2>
-<p>在VS2017中依次点击项目-&gt;属性-&gt;C/C++&gt;语言-&gt;符合模式，将原来的“是”改为“否”即可。</p>
-<h2 id="解决方案二">解决方案二</h2>
-<p>在声明变量 char* 时改成 const char *即可。</p>
-<h2 id="解决方案三">解决方案三</h2>
-<p>使用字符数组进行存储，然后再使用指针：</p>
-<pre><code class="language-cpp">Person::Person(char *Name, int Age) {
-	name = new char[strlen(Name) + 1];
-	strcpy(name, Name);
-	age = Age;//用public赋给private
-	cout &lt;&lt; &quot;constructor ....&quot; &lt;&lt; endl;
-}
-void main() {
-char x[] = &quot;张勇&quot;;
-	Person p1(x, 21);//原来为Person p1(&quot;张勇&quot;, 21);
-	......
-}
-</code></pre>
-<h2 id="解决方案四">解决方案四</h2>
-<p>使用强制类型转换：</p>
-<pre><code class="language-cpp">void main() {
-char x[] = &quot;张勇&quot;;
-	Person p1(x, 21);//原来为Person p1(&quot;张勇&quot;, 21);
-	......
-}
-//有问题代码char *Name = &quot;张勇&quot;;
-//正确的代码char *Name = (char *)&quot;张勇&quot;;
-//即Person p1((char*)&quot;张勇&quot;, 21);
-
-</code></pre>
-<h1 id="原因推测">原因推测</h1>
-<pre><code class="language-cpp">因为字符串是存储在内存静态区中。也就是实际是一个const char*变量，不可改变。 char*不能接收一个来自静态内存区的变量地址，因为*char可以随意更改该段内存中的数据，与const char*的定义不符。
-</code></pre>
+                <p>https://doi.org/10.1145/3444757.3485064.</p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a>
-<ul>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%80">解决方案一</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C">解决方案二</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%89">解决方案三</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%9B%9B">解决方案四</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8E%9F%E5%9B%A0%E6%8E%A8%E6%B5%8B">原因推测</a></li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -177,9 +119,9 @@ char x[] = &quot;张勇&quot;;
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://stevelau1015.github.io/post/123/">
+            <a href="https://stevelau1015.github.io/post/bei-fen-xia-gong-ju-ben/">
               <h3 class="post-title">
-                机器学习：手推SVM超平面分界线
+                备份夏宫剧本
               </h3>
             </a>
           </div>
