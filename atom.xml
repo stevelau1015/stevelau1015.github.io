@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://stevelau1015.github.io</id>
     <title>leon21</title>
-    <updated>2021-09-12T06:56:28.131Z</updated>
+    <updated>2021-09-12T06:57:00.063Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://stevelau1015.github.io"/>
     <link rel="self" href="https://stevelau1015.github.io/atom.xml"/>
@@ -201,31 +201,31 @@ pl.show()
 <h3 id="sql的基础语句"><strong>SQL的基础语句</strong></h3>
 <ul class="contains-task-list">
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7869818"><label class="task-list-item-label" for="task-item-7869818"> 创建：create table 表名 (字段设定列表)； √</label></p>
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-683091"><label class="task-list-item-label" for="task-item-683091"> 创建：create table 表名 (字段设定列表)； √</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7867672"><label class="task-list-item-label" for="task-item-7867672"> 选择：select * from table1 where 范围；√</label></p>
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-3252120"><label class="task-list-item-label" for="task-item-3252120"> 选择：select * from table1 where 范围；√</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-354350"><label class="task-list-item-label" for="task-item-354350"> 插入：insert into table1(field1,field2) values(value1,value2) √</label></p>
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1284356"><label class="task-list-item-label" for="task-item-1284356"> 插入：insert into table1(field1,field2) values(value1,value2) √</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7700003"><label class="task-list-item-label" for="task-item-7700003"> 排序：select * from table1 order by field1,field2 [desc]√</label></p>
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-932771"><label class="task-list-item-label" for="task-item-932771"> 排序：select * from table1 order by field1,field2 [desc]√</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7844765"><label class="task-list-item-label" for="task-item-7844765"> 求和：select sum(field1) as sumvalue from table1√</label></p>
+<p><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-5967231"><label class="task-list-item-label" for="task-item-5967231"> 求和：select sum(field1) as sumvalue from table1√</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-300880"><label class="task-list-item-label" for="task-item-300880"> 删除：delete from table1 where 范围</label></p>
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-7190455"><label class="task-list-item-label" for="task-item-7190455"> 删除：delete from table1 where 范围</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6219886"><label class="task-list-item-label" for="task-item-6219886"> 更新：update table1 set field1=value1 where 范围</label></p>
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-5156279"><label class="task-list-item-label" for="task-item-5156279"> 更新：update table1 set field1=value1 where 范围</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9858561"><label class="task-list-item-label" for="task-item-9858561"> 查找：select * from table1 where field1 like ’%value1%’</label></p>
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4835040"><label class="task-list-item-label" for="task-item-4835040"> 查找：select * from table1 where field1 like ’%value1%’</label></p>
 </li>
 <li class="task-list-item">
-<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4888628"><label class="task-list-item-label" for="task-item-4888628"> 总数：select count * as totalcount from table1</label></p>
+<p><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-663527"><label class="task-list-item-label" for="task-item-663527"> 总数：select count * as totalcount from table1</label></p>
 </li>
 </ul>
 <blockquote>
